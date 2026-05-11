@@ -8,7 +8,7 @@
             "name": "appwrite",
             "source": {
                 "source": "local",
-                "path": "../../plugins/appwrite"
+                "path": "./plugins/appwrite"
             },
             "policy": {
                 "installation": "AVAILABLE",

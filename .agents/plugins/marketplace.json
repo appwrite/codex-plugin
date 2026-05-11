@@ -1,0 +1,20 @@
+{
+    "name": "appwrite",
+    "interface": {
+        "displayName": "Appwrite"
+    },
+    "plugins": [
+        {
+            "name": "appwrite",
+            "source": {
+                "source": "local",
+                "path": "../../plugins/appwrite"
+            },
+            "policy": {
+                "installation": "AVAILABLE",
+                "authentication": "ON_INSTALL"
+            },
+            "category": "Developer Tools"
+        }
+    ]
+}

@@ -2,6 +2,5 @@
 #
 # Merge the contents of this file into your ~/.codex/config.toml.
 
-[mcp_servers.appwrite-docs]
-command = "npx"
-args = ["mcp-remote", "https://mcp-for-docs.appwrite.io"]
+[mcp_servers.appwrite]
+url = "https://mcp.appwrite.io/"

@@ -1,11 +1,11 @@
 # Appwrite Codex CLI Plugin
 
 ![License](https://img.shields.io/github/license/appwrite/codex-plugin.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-0.1.1-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-0.2.0-blue.svg?style=flat-square)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-Appwrite tools for the [OpenAI Codex CLI](https://github.com/openai/codex). This plugin packages Appwrite SDK skills, Appwrite deployment workflow skills, and the Appwrite docs MCP server.
+Appwrite tools for the [OpenAI Codex CLI](https://github.com/openai/codex). This plugin packages Appwrite SDK skills, Appwrite deployment workflow skills, and the hosted Appwrite MCP server.
 
 ## Structure
 
@@ -89,11 +89,21 @@ Deployment workflows are exposed as explicit skills:
 
 Use these to walk through deploying Appwrite sites and functions with the Appwrite CLI. Codex can also load them automatically when a task matches the skill description.
 
-## Included MCP Servers
+## Hosted MCP Server
 
-The bundled `plugins/appwrite/config.toml` registers one MCP server:
+The bundled plugin and `plugins/appwrite/config.toml` register one `appwrite` server at `https://mcp.appwrite.io/`. It provides tools for working with your Appwrite workspace and projects and for searching the latest Appwrite documentation.
 
-- `appwrite-docs` proxies `https://mcp-for-docs.appwrite.io` through `npx mcp-remote` so Codex can search the Appwrite documentation.
+The hosted server uses browser-based OAuth, so no API key, project ID, endpoint, or other manually configured secret is required. After installing the plugin or merging the manual configuration, authenticate with:
+
+```sh
+codex mcp login appwrite
+```
+
+Then try:
+
+> Use Appwrite to show my workspace context and list my projects.
+
+If the browser does not open, use the authorization URL printed by Codex. Run `codex mcp logout appwrite` followed by `codex mcp login appwrite` to refresh the OAuth session, and use `codex mcp get appwrite` to inspect the server configuration and status.
 
 ## Verify
 
@@ -101,7 +111,7 @@ After copying, run `codex` and check:
 
 - A session about Appwrite TypeScript work loads the `appwrite-typescript` skill (visible in the session header).
 - Typing `$` lets you invoke the `appwrite-deploy-*` skills explicitly.
-- `codex mcp list` (or `codex --debug`) lists the `appwrite-docs` server.
+- `codex mcp list` (or `codex --debug`) lists the `appwrite` server.
 
 ## Contribution
 

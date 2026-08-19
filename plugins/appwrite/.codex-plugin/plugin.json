@@ -1,7 +1,7 @@
 {
     "name": "appwrite",
-    "version": "0.1.1",
-    "description": "Appwrite tools for Codex, including SDK skills, MCP servers, and deployment workflow skills.",
+    "version": "0.2.0",
+    "description": "Appwrite tools for Codex, including SDK skills, the hosted Appwrite MCP server, and deployment workflow skills.",
     "author": {
         "name": "Appwrite",
         "email": "team@appwrite.io",
@@ -20,8 +20,8 @@
     "mcpServers": "./.mcp.json",
     "interface": {
         "displayName": "Appwrite",
-        "shortDescription": "Appwrite SDK skills, MCP servers, and deployment workflow skills for Codex.",
-        "longDescription": "Use Appwrite with Codex through language-specific SDK skills, project and documentation MCP servers, and guided deployment skills for sites and functions.",
+        "shortDescription": "Appwrite SDK skills, hosted MCP tools, and deployment workflow skills for Codex.",
+        "longDescription": "Use Appwrite with Codex through language-specific SDK skills, the OAuth-enabled hosted MCP server, and guided deployment skills for sites and functions.",
         "developerName": "Appwrite",
         "category": "Developer Tools",
         "capabilities": [

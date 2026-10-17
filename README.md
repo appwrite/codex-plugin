@@ -1,68 +1,59 @@
-# Appwrite Codex CLI Plugin
+# Appwrite Codex Plugin
 
-![License](https://img.shields.io/github/license/appwrite/codex-plugin.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-0.2.0-blue.svg?style=flat-square)
-[![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
+![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=flat-square)
+[![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-Appwrite tools for the [OpenAI Codex CLI](https://github.com/openai/codex). This plugin packages Appwrite SDK skills, Appwrite deployment workflow skills, and the hosted Appwrite MCP server.
-
-## Structure
-
-```text
-plugins/appwrite/skills/                       # Codex skills (auto-loaded by description match)
-|-- appwrite-typescript/SKILL.md
-|-- appwrite-dart/SKILL.md
-|-- appwrite-kotlin/SKILL.md
-|-- appwrite-swift/SKILL.md
-|-- appwrite-php/SKILL.md
-|-- appwrite-python/SKILL.md
-|-- appwrite-ruby/SKILL.md
-|-- appwrite-go/SKILL.md
-|-- appwrite-rust/SKILL.md
-|-- appwrite-dotnet/SKILL.md
-|-- appwrite-cli/SKILL.md
-|-- appwrite-deploy-site/SKILL.md
-`-- appwrite-deploy-function/SKILL.md
-plugins/appwrite/.codex-plugin/plugin.json     # Codex plugin manifest
-.agents/plugins/marketplace.json         # Local marketplace manifest
-plugins/appwrite/.mcp.json                     # MCP server config for plugin installs
-plugins/appwrite/config.toml                   # MCP server config snippet for manual installs
-```
+Appwrite tools for [Codex](https://github.com/openai/codex). This plugin packages Appwrite SDK skills, Appwrite deployment workflow skills, and the hosted Appwrite MCP server.
 
 ## Installation
 
-Codex plugins include a `.codex-plugin/plugin.json` manifest for plugin installation. For manual installs, Codex CLI loads skills from `~/.codex/skills/` and reads MCP server configuration from `~/.codex/config.toml`. Install the generated files manually by copying them into those locations.
+### From the OpenAI Curated marketplace
 
-To install through a local Codex marketplace, add this directory as a marketplace source using the generated `.agents/plugins/marketplace.json` file.
+1. Run `codex`, then run `/plugins`.
+2. Switch to the **OpenAI Curated** marketplace.
+3. Search for **Appwrite** and install the plugin.
+4. Sign in to Appwrite and approve access when prompted, then start a new Codex session.
 
-### macOS / Linux
+The plugin can also be installed from **Plugins** in the ChatGPT desktop app.
+
+### From this repository
+
+Add this repository as a marketplace and install the plugin from it:
 
 ```sh
-# Copy skills
-mkdir -p ~/.codex/skills
-cp -R plugins/appwrite/skills/* ~/.codex/skills/
-
-# Append the MCP config snippet to your Codex config
-mkdir -p ~/.codex
-cat plugins/appwrite/config.toml >> ~/.codex/config.toml
+codex plugin marketplace add appwrite/codex-plugin
+codex plugin add appwrite@appwrite
 ```
 
-### Windows (PowerShell)
+Start a new Codex session to load the bundled skills.
+
+### Manual setup
+
+To use the skills and the MCP server without the plugin, copy the skills into your user skills folder and register the server.
+
+macOS / Linux:
+
+```sh
+mkdir -p ~/.agents/skills
+cp -R plugins/appwrite/skills/* ~/.agents/skills/
+codex mcp add appwrite --url https://mcp.appwrite.io/
+```
+
+Windows (PowerShell):
 
 ```powershell
-# Copy skills
-New-Item -ItemType Directory -Force -Path "$HOME\.codex\skills" | Out-Null
-Copy-Item -Recurse plugins\appwrite\skills\* "$HOME\.codex\skills\"
-
-# Append the MCP config snippet to your Codex config
-New-Item -ItemType Directory -Force -Path "$HOME\.codex" | Out-Null
-Get-Content plugins\appwrite\config.toml | Add-Content "$HOME\.codex\config.toml"
+New-Item -ItemType Directory -Force -Path "$HOME\.agents\skills" | Out-Null
+Copy-Item -Recurse plugins\appwrite\skills\* "$HOME\.agents\skills\"
+codex mcp add appwrite --url https://mcp.appwrite.io/
 ```
 
-## Included Skills
+Instead of `codex mcp add`, you can merge `plugins/appwrite/config.toml` into `~/.codex/config.toml`.
 
-Each skill ships as `plugins/appwrite/skills/appwrite-<language>/SKILL.md`. Codex loads them based on the `description` field in the frontmatter, so they activate automatically when a session is about Appwrite work in that language:
+## Included skills
+
+The plugin ships these skills under `plugins/appwrite/skills/`:
 
 - `appwrite-typescript`
 - `appwrite-dart`
@@ -75,25 +66,18 @@ Each skill ships as `plugins/appwrite/skills/appwrite-<language>/SKILL.md`. Code
 - `appwrite-rust`
 - `appwrite-dotnet`
 - `appwrite-cli`
-- `appwrite-deploy-site`
-- `appwrite-deploy-function`
+- `deploy-site`
+- `deploy-function`
 
-The language skills give Codex language-specific Appwrite context for authentication, database queries, storage, realtime, functions, and server-side administration. The deployment skills walk through Appwrite Sites and Functions deployment with the Appwrite CLI.
+The language skills give Codex language-specific Appwrite context for authentication, database queries, storage, realtime, functions, and server-side administration. The `deploy-site` and `deploy-function` skills walk through deploying Appwrite Sites and Functions with the Appwrite CLI.
 
-## Deployment Workflows
+Codex loads a skill when a task matches its `description`. To invoke one explicitly, type `$` or run `/skills` and pick it.
 
-Deployment workflows are exposed as explicit skills:
+## Hosted MCP server
 
-- `$appwrite-deploy-site`
-- `$appwrite-deploy-function`
+The plugin registers one `appwrite` server at `https://mcp.appwrite.io/`. It provides tools for working with your Appwrite organizations and projects, and for searching the latest Appwrite documentation.
 
-Use these to walk through deploying Appwrite sites and functions with the Appwrite CLI. Codex can also load them automatically when a task matches the skill description.
-
-## Hosted MCP Server
-
-The bundled plugin and `plugins/appwrite/config.toml` register one `appwrite` server at `https://mcp.appwrite.io/`. It provides tools for working with your Appwrite workspace and projects and for searching the latest Appwrite documentation.
-
-The hosted server uses browser-based OAuth, so no API key, project ID, endpoint, or other manually configured secret is required. After installing the plugin or merging the manual configuration, authenticate with:
+The hosted server uses browser-based OAuth, so no API key, project ID, endpoint, or other manually configured secret is required. Codex asks you to sign in when you install the plugin. To sign in again, or after a manual setup, run:
 
 ```sh
 codex mcp login appwrite
@@ -103,19 +87,41 @@ Then try:
 
 > Use Appwrite to show my workspace context and list my projects.
 
-If the browser does not open, use the authorization URL printed by Codex. Run `codex mcp logout appwrite` followed by `codex mcp login appwrite` to refresh the OAuth session, and use `codex mcp get appwrite` to inspect the server configuration and status.
+If the browser does not open, use the authorization URL printed by Codex. Run `codex mcp logout appwrite` followed by `codex mcp login appwrite` to refresh the OAuth session, and `codex mcp list` to check that the server is configured.
 
-## Verify
+## Structure
 
-After copying, run `codex` and check:
+```text
+.agents/plugins/marketplace.json            # Marketplace manifest
+plugins/appwrite/
+├── .codex-plugin/plugin.json             # Plugin manifest
+├── .mcp.json                             # MCP server config for plugin installs
+├── config.toml                           # MCP server config for manual setup
+└── skills/
+    ├── appwrite-typescript/SKILL.md
+    ├── appwrite-dart/SKILL.md
+    ├── appwrite-kotlin/SKILL.md
+    ├── appwrite-swift/SKILL.md
+    ├── appwrite-php/SKILL.md
+    ├── appwrite-python/SKILL.md
+    ├── appwrite-ruby/SKILL.md
+    ├── appwrite-go/SKILL.md
+    ├── appwrite-rust/SKILL.md
+    ├── appwrite-dotnet/SKILL.md
+    ├── appwrite-cli/SKILL.md
+    ├── appwrite-deploy-site/SKILL.md
+    └── appwrite-deploy-function/SKILL.md
+```
 
-- A session about Appwrite TypeScript work loads the `appwrite-typescript` skill (visible in the session header).
-- Typing `$` lets you invoke the `appwrite-deploy-*` skills explicitly.
-- `codex mcp list` (or `codex --debug`) lists the `appwrite` server.
+## Learn more
+
+- [Appwrite in Codex](https://appwrite.io/docs/tooling/ai/agents/codex)
+- [Appwrite MCP server](https://appwrite.io/docs/tooling/ai/mcp-servers)
+- [Codex plugins documentation](https://learn.chatgpt.com/docs/plugins)
 
 ## Contribution
 
-This library is auto-generated by Appwrite custom [SDK Generator](https://github.com/appwrite/sdk-generator). To learn more about how you can help us improve this SDK, please check the [contribution guide](https://github.com/appwrite/sdk-generator/blob/master/CONTRIBUTING.md) before sending a pull-request.
+This library is auto-generated by Appwrite custom [SDK Generator](https://github.com/appwrite/sdk-generator). To learn more about how you can help us improve this SDK, please check the [contribution guide](https://github.com/appwrite/sdk-generator/blob/main/CONTRIBUTING.md) before sending a pull-request.
 
 ## License
 

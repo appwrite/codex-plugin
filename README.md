@@ -1,7 +1,7 @@
 # Appwrite Codex Plugin
 
 ![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
-![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/version-0.3.0-blue.svg?style=flat-square)
 [![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
@@ -66,10 +66,10 @@ The plugin ships these skills under `plugins/appwrite/skills/`:
 - `appwrite-rust`
 - `appwrite-dotnet`
 - `appwrite-cli`
-- `deploy-site`
-- `deploy-function`
+- `appwrite-deploy-site`
+- `appwrite-deploy-function`
 
-The language skills give Codex language-specific Appwrite context for authentication, database queries, storage, realtime, functions, and server-side administration. The `deploy-site` and `deploy-function` skills walk through deploying Appwrite Sites and Functions with the Appwrite CLI.
+The language skills give Codex language-specific Appwrite context for authentication, database queries, storage, realtime, functions, and server-side administration. The `appwrite-deploy-site` and `appwrite-deploy-function` skills walk through deploying Appwrite Sites and Functions with the Appwrite CLI.
 
 Codex loads a skill when a task matches its `description`. To invoke one explicitly, type `$` or run `/skills` and pick it.
 

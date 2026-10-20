@@ -1,5 +1,5 @@
 ---
-name: deploy-site
+name: appwrite-deploy-site
 description: Deploy a site using the Appwrite CLI
 ---
 

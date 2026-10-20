@@ -1,5 +1,5 @@
 ---
-name: deploy-function
+name: appwrite-deploy-function
 description: Deploy a function using the Appwrite CLI
 ---
 

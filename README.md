@@ -68,8 +68,15 @@ The plugin ships these skills under `plugins/appwrite/skills/`:
 - `appwrite-cli`
 - `appwrite-deploy-site`
 - `appwrite-deploy-function`
+- `appwrite-hansi-status`
+- `appwrite-hansi-loop`
+- `appwrite-hansi-learn`
+- `appwrite-hansi-setup`
+- `appwrite-hansi-threads`
 
 The language skills give Codex language-specific Appwrite context for authentication, database queries, storage, realtime, functions, and server-side administration. The `appwrite-deploy-site` and `appwrite-deploy-function` skills walk through deploying Appwrite Sites and Functions with the Appwrite CLI.
+
+The `appwrite-hansi-*` skills work with Hansi, the reviewer behind Appwrite Review, on GitHub pull requests: `hansi-status` reads the current tier and open findings without starting a review, `hansi-loop` fixes the pull request until Hansi grades it **Tier S**, `hansi-learn` saves a lasting review rule by replying on a finding, `hansi-setup` writes `.hansi.json`, and `hansi-threads` keeps Codex from resolving Hansi's review threads. They need Appwrite Review set up on the repository (Console → your project → Review) and a way to talk to GitHub; the examples use the GitHub CLI. Each review counts toward the project's review usage.
 
 Codex loads a skill when a task matches its `description`. To invoke one explicitly, type `$` or run `/skills` and pick it.
 
@@ -110,7 +117,12 @@ plugins/appwrite/
     ├── appwrite-dotnet/SKILL.md
     ├── appwrite-cli/SKILL.md
     ├── appwrite-deploy-site/SKILL.md
-    └── appwrite-deploy-function/SKILL.md
+    ├── appwrite-deploy-function/SKILL.md
+    ├── appwrite-hansi-status/SKILL.md
+    ├── appwrite-hansi-loop/SKILL.md
+    ├── appwrite-hansi-learn/SKILL.md
+    ├── appwrite-hansi-setup/SKILL.md
+    └── appwrite-hansi-threads/SKILL.md
 ```
 
 ## Learn more

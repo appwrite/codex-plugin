@@ -1,6 +1,6 @@
 {
     "name": "appwrite",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "Appwrite tools for Codex, including SDK skills, the hosted Appwrite MCP server, and deployment workflow skills.",
     "author": {
         "name": "Appwrite",
